@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "192152386401",
+    "project_id": "taptime-b24c4",
+    "storage_bucket": "taptime-b24c4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192152386401:android:11cfb3c6463544a3736320",
+        "android_client_info": {
+          "package_name": "com.ppkdjp.taptime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHs_zTt93_87Y8lH5b-v0JDbyb8TS-ZSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
