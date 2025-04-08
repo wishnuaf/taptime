@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:taptime/app/routes/app_pages.dart';
 
 import '../controllers/splashscreen_controller.dart';
 
@@ -12,6 +13,12 @@ class SplashscreenView extends GetView<SplashscreenController> {
       appBar: AppBar(
         title: const Text('SplashscreenView'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Get.toNamed(Routes.LOGINSCREEN),
+          ),
+        ],
       ),
       body: const Center(
         child: Text(
