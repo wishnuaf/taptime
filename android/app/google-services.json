@@ -12,7 +12,20 @@
           "package_name": "com.ppkdjp.taptime"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "192152386401-dqs4elr5vvdndang4ts8j93hgd8scgcd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppkdjp.taptime",
+            "certificate_hash": "9f4e911f194b2efd7dd9a4a68b97e99c7adf8afc"
+          }
+        },
+        {
+          "client_id": "192152386401-9qd6nqg09neausv5kejhjmvhkrh60h31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDHs_zTt93_87Y8lH5b-v0JDbyb8TS-ZSc"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192152386401-9qd6nqg09neausv5kejhjmvhkrh60h31.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

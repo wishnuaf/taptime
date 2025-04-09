@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taptime/app/modules/homescreen/views/homescreen_view.dart';
 
 class LoginscreenController extends GetxController {
-
-   final usernameController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final isLoading = false.obs;
   final rememberMe = false.obs;
@@ -17,7 +17,11 @@ class LoginscreenController extends GetxController {
       final password = passwordController.text.trim();
 
       if (email.isEmpty || password.isEmpty) {
-        Get.snackbar("Error", "Username dan password tidak boleh kosong");
+        Fluttertoast.showToast(
+          msg: "Username dan password tidak boleh kosong",
+          backgroundColor: Colors.white,
+          textColor: Colors.red,
+        );
         isLoading.value = false;
         return;
       }
@@ -27,32 +31,17 @@ class LoginscreenController extends GetxController {
         password: password,
       );
 
-      Get.snackbar("Berhasil", "Login sukses");
-      // Arahkan ke halaman utama
-      Get.offAll(() => HomescreenView());
+      Fluttertoast.showToast(
+        msg: "Login sukses",
+        backgroundColor: Colors.white,
+        textColor: Colors.green,
+      );
+      Get.offAll(() => const HomescreenView());
+      // Get.toNamed(Routes.PRESENCE);
     } on FirebaseAuthException catch (e) {
-      Get.snackbar("Login Gagal", e.message ?? "Terjadi kesalahan");
+      Fluttertoast.showToast(msg: e.message ?? "Terjadi kesalahan");
     } finally {
       isLoading.value = false;
     }
   }
-  //TODO: Implement LoginscreenController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

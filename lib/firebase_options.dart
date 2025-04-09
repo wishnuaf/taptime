@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'taptime-b24c4',
     storageBucket: 'taptime-b24c4.firebasestorage.app',
   );
+
 }
