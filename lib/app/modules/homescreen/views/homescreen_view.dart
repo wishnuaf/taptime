@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taptime/app/routes/app_pages.dart';
 import '../controllers/homescreen_controller.dart';
 
 class HomescreenView extends GetView<HomescreenController> {
@@ -11,20 +13,6 @@ class HomescreenView extends GetView<HomescreenController> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF6F6F6),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Image.asset('assets/images/taptime-logo.png', width: 50),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF62D0FF), Color(0xFF007BFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -52,7 +40,7 @@ class HomescreenView extends GetView<HomescreenController> {
                           const SizedBox(height: 4),
                           Text(
                             controller.username.value.isEmpty
-                                ? '' // atau bisa pakai 'Loading...'
+                                ? ''
                                 : controller.username.value,
                             style: const TextStyle(
                               fontSize: 18,

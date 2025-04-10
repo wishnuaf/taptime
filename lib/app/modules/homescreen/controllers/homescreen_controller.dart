@@ -9,29 +9,17 @@ class HomescreenController extends GetxController {
 
   final attendanceData =
       {
-        'Tepat Waktu': {
-          'value': '30',
+        'WFA': {
+          'value': '',
           'unit': 'Hari',
-          'icon': Icons.calendar_month,
-          'color': Colors.green,
+          'icon': Icons.person,
+          'color': Colors.blueGrey,
         },
-        'Tidak Masuk': {
-          'value': '1',
+        'WFO': {
+          'value': '',
           'unit': 'Hari',
-          'icon': Icons.cancel,
-          'color': Colors.red,
-        },
-        'Terlambat': {
-          'value': '23',
-          'unit': 'Menit',
-          'icon': Icons.timer_off,
-          'color': Colors.red,
-        },
-        'Saldo Cuti': {
-          'value': '10',
-          'unit': 'Hari',
-          'icon': Icons.remove_circle,
-          'color': Colors.red,
+          'icon': Icons.laptop,
+          'color': Colors.blueGrey,
         },
       }.obs;
 
@@ -41,12 +29,41 @@ class HomescreenController extends GetxController {
     fetchUserData();
   }
 
+  Future<void> fetchAttendanceSummary(String uid) async {
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance
+              .collection('karyawan')
+              .doc(uid)
+              .collection('presences')
+              .where(
+                'status',
+                isEqualTo: 'In',
+              ) // Hanya ambil yang status-nya 'In'
+              .get();
+
+      int wfaCount = 0;
+      int wfoCount = 0;
+
+      for (var doc in snapshot.docs) {
+        final location = doc.data()['location'];
+        if (location == 'WFA') wfaCount++;
+        if (location == 'WFO') wfoCount++;
+      }
+
+      // Update nilai ke dalam attendanceData
+      attendanceData['WFA']?['value'] = wfaCount.toString();
+      attendanceData['WFO']?['value'] = wfoCount.toString();
+      attendanceData.refresh();
+    } catch (e) {
+      print('Error saat hitung WFA/WFO: $e');
+    }
+  }
+
   void fetchUserData() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        return;
-      }
+      if (user == null) return;
 
       final userDoc =
           await FirebaseFirestore.instance
@@ -58,7 +75,12 @@ class HomescreenController extends GetxController {
         final data = userDoc.data()!;
         username.value = data['username'] ?? 'Tanpa Nama';
         profileUrl.value = data['profileUrl'] ?? '';
-      } else {}
-    } catch (e) {}
+      }
+
+      // Setelah ambil user, hitung kehadiran
+      await fetchAttendanceSummary(user.uid);
+    } catch (e) {
+      // print('Error: $e');
+    }
   }
 }

@@ -1,46 +1,74 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:taptime/app/modules/homescreen/controllers/homescreen_controller.dart';
 
 class PresenceController extends GetxController {
-  var selectedLocation = ''.obs;
-  var selectedStatus = ''.obs;
-  var currentTime = ''.obs;
+  final currentTime = ''.obs;
+  final selectedLocation = ''.obs;
+  final selectedStatus = ''.obs;
 
-  List<String> locations = ['WFA', 'WFO'];
-  List<String> statuses = ['IN', 'OUT'];
+  final locations = ['WFA', 'WFO'];
+  final statuses = ['In', 'Out'];
+
+  final homescreenController = Get.find<HomescreenController>();
+
+  late Timer _timer;
 
   @override
   void onInit() {
     super.onInit();
-    updateTime();
+    _startClock();
   }
 
-  void updateTime() {
-    currentTime.value = DateFormat.Hms(
-      'id_ID',
-    ).format(DateTime.now().toUtc().add(const Duration(hours: 7))); // WIB
-    Future.delayed(const Duration(seconds: 1), updateTime);
+  void _startClock() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      final now = DateTime.now().toUtc().add(
+        const Duration(hours: 7),
+      ); // WIB = UTC+7
+      currentTime.value = DateFormat.Hms().format(now);
+    });
   }
 
-  void submitAttendance() async {
-    if (selectedLocation.value.isEmpty || selectedStatus.value.isEmpty) {
-      Get.snackbar("Gagal", "Pilih lokasi dan status terlebih dahulu");
-    } else {
-      try {
-        await FirebaseFirestore.instance.collection("presensi").add({
-          "location": selectedLocation.value,
-          "status": selectedStatus.value,
-          "time": currentTime.value,
-          "timestamp": FieldValue.serverTimestamp(),
-        });
-        Get.snackbar(
-          "Berhasil",
-          "Absen ${selectedStatus.value} di ${selectedLocation.value} pada ${currentTime.value}",
-        );
-      } catch (e) {
-        Get.snackbar("Error", "Gagal menyimpan ke Firestore");
+  void submitPresence() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        Get.snackbar('Error', 'User belum login!');
+        return;
       }
+
+      // (opsional) Ambil nama user dari Firestore jika tidak disimpan di displayName
+      String? name = user.displayName;
+      if (name == null || name.isEmpty) {
+        final userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .get();
+        name = userDoc.data()?['name'] ?? 'Tidak diketahui';
+      }
+
+      await FirebaseFirestore.instance
+          .collection('karyawan')
+          .doc(user.uid)
+          .collection('presences')
+          .add({
+            'uid': user.uid,
+            'username': name,
+            'timestamp': FieldValue.serverTimestamp(),
+            'time': currentTime.value,
+            'location': selectedLocation.value,
+            'status': selectedStatus.value,
+          });
+
+      await homescreenController.fetchAttendanceSummary(user.uid);
+
+      Get.snackbar('Sukses', 'Data absensi berhasil dikirim!');
+    } catch (e) {
+      Get.snackbar('Error', 'Gagal mengirim data: $e');
     }
   }
 }

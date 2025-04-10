@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:taptime/app/modules/homescreen/views/homescreen_view.dart';
+import 'package:taptime/app/modules/navigation/views/main_view.dart';
 
 class LoginscreenController extends GetxController {
   final usernameController = TextEditingController();
@@ -33,11 +33,10 @@ class LoginscreenController extends GetxController {
 
       Fluttertoast.showToast(
         msg: "Login sukses",
-        backgroundColor: Colors.white,
-        textColor: Colors.green,
+        backgroundColor: Colors.lightGreen,
+        textColor: Colors.white,
       );
-      Get.offAll(() => const HomescreenView());
-      // Get.toNamed(Routes.PRESENCE);
+      Get.offAll(() => MainView());
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(msg: e.message ?? "Terjadi kesalahan");
     } finally {

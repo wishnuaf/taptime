@@ -8,7 +8,12 @@ import '../controllers/register_controller.dart';
 class RegisterView extends GetView<RegisterController> {
   const RegisterView({super.key});
   @override
-  Widget buildTextField(String hint, TextEditingController controller, IconData icon, {bool isPassword = false}) {
+  Widget buildTextField(
+    String hint,
+    TextEditingController controller,
+    IconData icon, {
+    bool isPassword = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: TextField(
@@ -53,30 +58,66 @@ class RegisterView extends GetView<RegisterController> {
               const SizedBox(height: 37),
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Daftar', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                child: Text(
+                  'Daftar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Silahkan daftar ke aplikasi', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                child: Text(
+                  'Silahkan daftar ke aplikasi',
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                ),
               ),
               const SizedBox(height: 16),
-              buildTextField('Masukkan Username', controller.usernameController, Icons.person),
-              buildTextField('Masukkan Email', controller.emailController, Icons.email),
-              buildTextField('Masukkan Nomor Telepon', controller.phoneController, Icons.phone),
-              buildTextField('Masukkan Kata Sandi', controller.passwordController, Icons.lock, isPassword: true),
-              buildTextField('Masukkan Ulang Kata Sandi', controller.confirmPasswordController, Icons.lock, isPassword: true),
+              buildTextField(
+                'Masukkan Username',
+                controller.usernameController,
+                Icons.person,
+              ),
+              buildTextField(
+                'Masukkan Email',
+                controller.emailController,
+                Icons.email,
+              ),
+              buildTextField(
+                'Masukkan Nomor Telepon',
+                controller.phoneController,
+                Icons.phone,
+              ),
+              buildTextField(
+                'Masukkan Kata Sandi',
+                controller.passwordController,
+                Icons.lock,
+                isPassword: true,
+              ),
+              buildTextField(
+                'Masukkan Ulang Kata Sandi',
+                controller.confirmPasswordController,
+                Icons.lock,
+                isPassword: true,
+              ),
               const SizedBox(height: 12),
-              Obx(() => ElevatedButton(
-                    onPressed: controller.isLoading.value ? null : controller.register,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blue,
-                      minimumSize: const Size.fromHeight(45),
-                    ),
-                    child: controller.isLoading.value
-                        ? const CircularProgressIndicator(color: Colors.blue)
-                        : const Text('Daftar'),
-                  )),
+              Obx(
+                () => ElevatedButton(
+                  onPressed:
+                      controller.isLoading.value ? null : controller.register,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue,
+                    minimumSize: const Size.fromHeight(45),
+                  ),
+                  child:
+                      controller.isLoading.value
+                          ? const CircularProgressIndicator(color: Colors.blue)
+                          : const Text('Daftar'),
+                ),
+              ),
               const SizedBox(height: 10),
               OutlinedButton(
                 onPressed: () => Get.offNamed(Routes.LOGINSCREEN),
@@ -87,8 +128,11 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 child: const Text('Sudah Punya Akun ? Masuk Disini'),
               ),
-              const SizedBox(height: 180),
-              const Text('powered by PPKD', style: TextStyle(color: Colors.white70, fontSize: 12)),
+              const SizedBox(height: 150),
+              const Text(
+                'powered by PPKD',
+                style: TextStyle(color: Colors.white70, fontSize: 12),
+              ),
               const SizedBox(height: 30),
             ],
           ),

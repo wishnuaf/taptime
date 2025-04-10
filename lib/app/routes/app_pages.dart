@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/authgate/bindings/authgate_binding.dart';
+import '../modules/authgate/views/authgate_view.dart';
 import '../modules/homescreen/bindings/homescreen_binding.dart';
 import '../modules/homescreen/views/homescreen_view.dart';
 import '../modules/loginscreen/bindings/loginscreen_binding.dart';
@@ -10,6 +12,8 @@ import '../modules/presence/bindings/presence_binding.dart';
 import '../modules/presence/views/presence_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/report/bindings/report_binding.dart';
+import '../modules/report/views/report_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
 
@@ -50,6 +54,16 @@ class AppPages {
       name: _Paths.NAVIGATION,
       page: () => const NavigationView(),
       binding: NavigationBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTHGATE,
+      page: () => const AuthgateView(),
+      binding: AuthgateBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORT,
+      page: () => const ReportView(),
+      binding: ReportBinding(),
     ),
   ];
 }

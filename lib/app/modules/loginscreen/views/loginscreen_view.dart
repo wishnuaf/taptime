@@ -31,7 +31,11 @@ class LoginscreenView extends GetView<LoginscreenController> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Masuk',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               const Align(
@@ -50,7 +54,10 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   prefixIcon: const Icon(Icons.person, color: Colors.white),
                   hintText: 'Email',
                   hintStyle: const TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
@@ -64,43 +71,56 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   prefixIcon: const Icon(Icons.lock, color: Colors.white),
                   hintText: 'Password',
                   hintStyle: const TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Obx(() => Checkbox(
-                        value: controller.rememberMe.value,
-                        onChanged: (value) => controller.rememberMe.value = value ?? false,
-                        checkColor: Colors.blue,
-                        activeColor: Colors.white,
-                      )),
-                  const Text('Ingat saya', style: TextStyle(color: Colors.white)),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Lupa sandi?',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
+              const SizedBox(height: 30),
+              // Row(
+              //   children: [
+              //     Obx(
+              //       () => Checkbox(
+              //         value: controller.rememberMe.value,
+              //         onChanged:
+              //             (value) =>
+              //                 controller.rememberMe.value = value ?? false,
+              //         checkColor: Colors.blue,
+              //         activeColor: Colors.white,
+              //       ),
+              //     ),
+              //     const Text(
+              //       'Ingat saya',
+              //       style: TextStyle(color: Colors.white),
+              //     ),
+              //     const Spacer(),
+              //     TextButton(
+              //       onPressed: () {},
+              //       child: const Text(
+              //         'Lupa sandi?',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 12),
-              Obx(() => ElevatedButton(
-                    onPressed:
-                    controller.isLoading.value ? null : controller.login,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blue,
-                      minimumSize: const Size.fromHeight(45),
-                    ),
-                    child: controller.isLoading.value
-                        ? const CircularProgressIndicator(color: Colors.blue)
-                        : const Text('Masuk'),
-                  )),
+              Obx(
+                () => ElevatedButton(
+                  onPressed:
+                      controller.isLoading.value ? null : controller.login,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue,
+                    minimumSize: const Size.fromHeight(45),
+                  ),
+                  child:
+                      controller.isLoading.value
+                          ? const CircularProgressIndicator(color: Colors.blue)
+                          : const Text('Masuk'),
+                ),
+              ),
               const SizedBox(height: 10),
               OutlinedButton(
                 onPressed: () {

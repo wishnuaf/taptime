@@ -37,10 +37,14 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.6
   fluttertoast: ^8.2.12
+  geocoding: ^3.0.0
+  geolocator: ^13.0.4
   get: ^4.7.2
+  google_maps_flutter: ^2.12.1
   image_cropper: ^9.1.0
   image_picker: ^1.1.2
   intl: ^0.20.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0

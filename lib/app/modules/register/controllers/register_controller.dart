@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taptime/app/modules/homescreen/views/homescreen_view.dart';
+import 'package:taptime/app/modules/navigation/views/main_view.dart';
 
 class RegisterController extends GetxController {
-  
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -23,7 +22,11 @@ class RegisterController extends GetxController {
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
 
-    if (username.isEmpty || email.isEmpty || phone.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (username.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       Get.snackbar('Error', 'Semua field wajib diisi');
       return;
     }
@@ -52,13 +55,11 @@ class RegisterController extends GetxController {
 
       Get.snackbar('Sukses', 'Pendaftaran berhasil');
       // Redirect ke login / home
-      Get.offAll(() => HomescreenView());
+      Get.offAll(() => MainView());
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Gagal', e.message ?? 'Terjadi kesalahan');
     } finally {
       isLoading.value = false;
     }
   }
-
-
 }
